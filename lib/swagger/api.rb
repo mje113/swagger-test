@@ -8,17 +8,17 @@ module Swagger
       @resource_listing = ResourceListing.new
     end
 
-    def method_missing(meth, *args)
-      binding.pry
-      if @resource_listing.respond_to? meth
-        @resource_listing.send meth, *args
-      elsif @resource_listing.info.respond_to? meth
-        @resource_listing.info.send meth, *args
-      else
-        binding.pry
-        super
-      end
-    end
+    # def method_missing(meth, *args)
+    #   binding.pry
+    #   if @resource_listing.respond_to? meth
+    #     @resource_listing.send meth, *args
+    #   elsif @resource_listing.info.respond_to? meth
+    #     @resource_listing.info.send meth, *args
+    #   else
+    #     binding.pry
+    #     super
+    #   end
+    # end
 
     # def method_missing(meth, *args)
     #   binding.pry
