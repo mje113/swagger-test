@@ -25,5 +25,6 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency             'rack'
   spec.add_dependency             'rack-test'
+  spec.add_dependency             'multi_json'
   spec.add_dependency             'json-schema'
 end

@@ -5,8 +5,9 @@ require 'minitest/autorun'
 
 class Minitest::Test
 
-  Swagger.init do
-    api_version = '1.0'
-    title       = 'My API'
+  Swagger.init do |api|
+    api.api_version = '1.0'
+    api.title       = 'My API'
   end
+
 end

@@ -1,9 +1,5 @@
-require 'swagger/api'
-require 'swagger/info'
-require 'swagger/resource_listing'
-require 'swagger/resource'
-require 'swagger/operation'
-require 'swagger/parameter'
+require 'multi_json'
+require 'swagger/spec'
 require 'swagger/test'
 require 'swagger/version'
 
@@ -11,16 +7,34 @@ module Swagger
 
   SWAGGER_VERSION = '1.2'.freeze
 
+  @resource_listing = Spec::ResourceListing.new
+
   module_function
 
-  def init(&block)
-    @api = Api.new
-    @api.instance_exec &block
+  def init
+    yield self
   end
 
-  def api
-    raise ArgumentError, 'You must init Swagger before accessing your api.' if @api.nil?
-    @api
+  def swagger_version
+    SWAGGER_VERSION
+  end
+
+  def resource_listing
+    @resource_listing
+  end
+
+  def method_missing(meth, *args)
+    if resource_listing.respond_to? meth
+      resource_listing.send meth, *args
+    elsif resource_listing.info.respond_to? meth
+      resource_listing.info.send meth, *args
+    else
+      super
+    end
+  end
+
+  def to_doc
+    resource_listing.to_doc
   end
 
 end
