@@ -16,8 +16,8 @@ class TestApp < Minitest::Test
     App.new
   end
 
-  path '/users'
-  description 'User resource'
+  swagger.path = '/users'
+  swagger.description = 'User resource'
 
   def test_swagger
     assert_equal Swagger::SWAGGER_VERSION, Swagger.swagger_version

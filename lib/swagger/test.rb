@@ -6,7 +6,6 @@ module Swagger
 
     MUTEX = Mutex.new
 
-
     def self.included(klass)
       klass.send(:include, Assertions)
       klass.send(:extend,  ClassMethods)
@@ -29,24 +28,20 @@ module Swagger
       }
     end
 
-    def get(uri, params = {}, env = {}, &block)
-      # do something with params
-      @current_operation.get(uri, params, env)
-      super
+    %w(get post put patch delete options).each do |method|
+      define_method method do |uri, params = {}, env = {}, &block|
+        @current_operation.send(method, uri, params, env)
+        super(uri, params, env, &block)
+      end
     end
 
     module ClassMethods
+      def swagger
+        resource
+      end
 
       def resource
         @resource
-      end
-
-      def path(path)
-        @resource.path = path
-      end
-
-      def description(description)
-        @resource.description = description
       end
     end
   end

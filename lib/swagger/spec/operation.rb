@@ -14,9 +14,15 @@ module Swagger
         @deprecated = 'false'
       end
 
-      def get(uri, params, env)
-        @method = 'GET'
-        # setup params
+      %w(get post put patch delete options).each do |method|
+        define_method method do |uri, params, env, &block|
+          extract_parameters(uri, params, env)
+          @method = method.upcase
+        end
+      end
+
+      def extract_parameters(uri, params, env)
+
       end
     end
   end
