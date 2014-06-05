@@ -3,6 +3,10 @@ require 'swagger'
 require 'rack/test'
 require 'minitest/autorun'
 
+Minitest.after_run {
+  puts MultiJson.dump(Swagger.to_doc, pretty: true)
+}
+
 class Minitest::Test
 
   Swagger.init do |api|

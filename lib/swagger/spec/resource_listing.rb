@@ -1,24 +1,17 @@
 module Swagger
   module Spec
     class ResourceListing
+      include Spec
 
-      attr_accessor :swagger_version, :apis, :api_version, :info, :authorizations
+      swagger_attrs :swagger_version, :apis, :api_version,
+                    :info, :authorizations
 
       def initialize
+        @swagger_version = SWAGGER_VERSION
         @api_version     = '1.0'
         @info            = Info.new
         @authorizations  = []
         @apis            = []
-      end
-
-      def to_doc
-        MultiJson.dump(
-          swaggerVersion: swagger_version,
-          apis:           apis.map(&:to_doc),
-          apiVersion:     api_version,
-          info:           info.to_doc,
-          authorizations: authorizations
-        )
       end
     end
   end

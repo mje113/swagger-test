@@ -1,15 +1,9 @@
 module Swagger
   module Spec
     class Resource
+      include Spec
 
-      attr_accessor :path, :description
-
-      def to_doc
-        {
-          path: path,
-          description: description
-        }
-      end
+      swagger_attrs :path, :description
     end
   end
 end

@@ -3,10 +3,6 @@ require 'swagger/test/assertions'
 require 'swagger/test/request'
 require 'swagger/test/response'
 
-Minitest.after_run {
-  puts Swagger.to_doc
-}
-
 module Swagger
   module Test
 
