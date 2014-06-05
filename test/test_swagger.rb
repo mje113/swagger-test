@@ -3,7 +3,7 @@ require 'helper'
 class App
 
   def call(env)
-    [200, {}, ['MIKE']]
+    [200, {}, ['']]
   end
 end
 
@@ -12,12 +12,12 @@ class TestApp < Minitest::Test
   include Rack::Test::Methods
   include Swagger::Test
 
-  path '/users'
-  description 'User resource'
-
   def app
     App.new
   end
+
+  path '/users'
+  description 'User resource'
 
   def test_swagger
     assert_equal Swagger::SWAGGER_VERSION, Swagger.swagger_version
@@ -30,19 +30,23 @@ class TestApp < Minitest::Test
     assert_equal 'User resource', self.class.resource.description
   end
 
-  def test_swagger_get
+  def test_swagger_index
     swagger(:index) do |swagger|
-      swagger.summary 'Summary'
-      swagger.notes   'Notes'
+      swagger.summary = 'Summary'
+      swagger.notes   = 'Notes'
 
-      swagger.request do |request|
-        get '/users'
-      end
+      get '/users'
+      assert last_response.ok?
+    end
+  end
 
-      swagger.response do |response|
-        assert last_response.ok?
-        assert_equal 'MIKE', last_response.body
-      end
+  def test_swagger_get
+    swagger(:show) do |swagger|
+      swagger.summary = 'Summary 2'
+      swagger.notes   = 'Notes 2'
+
+      get '/users', user_id: '12345'
+      assert last_response.ok?
     end
   end
 end

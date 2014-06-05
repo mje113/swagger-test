@@ -5,6 +5,9 @@ require 'minitest/autorun'
 
 Minitest.after_run {
   puts MultiJson.dump(Swagger.to_doc, pretty: true)
+  Swagger.apis.each do |api|
+    puts MultiJson.dump(api.to_doc, pretty: true)
+  end
 }
 
 class Minitest::Test

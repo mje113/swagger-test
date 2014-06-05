@@ -8,6 +8,7 @@ module Swagger
   SWAGGER_VERSION = '1.2'.freeze
 
   @resource_listing = Spec::ResourceListing.new
+  @apis = []
 
   module_function
 
@@ -23,6 +24,11 @@ module Swagger
     @resource_listing
   end
 
+  def apis
+    @apis
+  end
+
+  # Delegate
   def method_missing(meth, *args)
     if resource_listing.respond_to? meth
       resource_listing.send meth, *args

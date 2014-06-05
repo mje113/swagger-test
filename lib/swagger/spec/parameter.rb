@@ -1,21 +1,12 @@
 module Swagger
   module Spec
     class Parameter
+      include Spec
 
-      def initialize(param_type, name, value)
-        @name       = name
-        @required   = false
-        @type       = type_cast(value)
-        @param_type = param_type
-      end
+      swagger_attrs :param_type, :name, :description, :required, :allow_multiple
 
-      def to_doc
-        {
-          name:      @name,
-          required:  @required,
-          type:      @type,
-          paramType: @param_type
-        }
+      def initialize
+        @required = true
       end
 
       private
