@@ -40,12 +40,22 @@ class TestApp < Minitest::Test
     end
   end
 
-  def test_swagger_get
+  def test_swagger_show
     swagger(:show) do |swagger|
       swagger.summary = 'Summary 2'
       swagger.notes   = 'Notes 2'
 
       get '/users', user_id: '12345'
+      assert last_response.ok?
+    end
+  end
+
+  def test_swagger_create
+    swagger(:create) do |swagger|
+      swagger.summary = 'Summary 2'
+      swagger.notes   = 'Notes 2'
+
+      post '/users?key=123', user_id: '12345'
       assert last_response.ok?
     end
   end
