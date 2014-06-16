@@ -32,8 +32,8 @@ class TestApp < Minitest::Test
 
   def test_swagger_index
     swagger(:index) do |swagger|
-      swagger.summary = 'Summary'
-      swagger.notes   = 'Notes'
+      swagger.summary = 'Summary 1'
+      swagger.notes   = 'Notes 1'
 
       get '/users'
       assert last_response.ok?
@@ -52,8 +52,8 @@ class TestApp < Minitest::Test
 
   def test_swagger_create
     swagger(:create) do |swagger|
-      swagger.summary = 'Summary 2'
-      swagger.notes   = 'Notes 2'
+      swagger.summary = 'Summary 3'
+      swagger.notes   = 'Notes 3'
 
       post '/users?key=123', user_id: '12345'
       assert last_response.ok?

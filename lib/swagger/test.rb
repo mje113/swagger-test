@@ -22,7 +22,7 @@ module Swagger
       # I think that synchronizing here is probably unnessecary
       # as I believe Minitest runs each test in a new instance.
       MUTEX.synchronize {
-        @current_operation = Swagger::Spec::Operation.new(@current_operation)
+        @current_operation = Swagger::Spec::Operation.new(operation)
         yield @current_operation
         self.class.resource.api.operations << @current_operation
       }
